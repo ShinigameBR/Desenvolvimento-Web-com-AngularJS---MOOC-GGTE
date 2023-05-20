@@ -1,0 +1,49 @@
+<div ng-controller="ListagemAlunosController" class="alert alert-secondary">
+    <p> Olá, {{nome}}!</p>
+    <div ng-class="{'card text-bg-success mb-3':iniciado, 'card text-bg-danger mb-3r':!iniciado}">
+        <div class="card-header">
+            Situação do curso
+        </div>
+        <div class="card-body">
+            <p ng-show="iniciado">Curso em andamento!</p>
+            <p ng-hide="iniciado">Curso em Finalizado!</p>
+            <p ng-if="!iniciado">Aguarde o proximo curso!</p>
+            <p>Preço do curso: {{valor | currency : 'R$'}}</p>
+            <p>Última atualização do sistema: {{hoje | date: 'dd/MM/yyyy'}}</p>
+        </div>
+    </div>
+    <div>
+        <label for="">Definir Preço:</label>
+        <input type="number" id="valor" name="valor" ng-model="valor">
+    </div>
+
+    <button ng-show="iniciado" ng-click="finalizar()" class="btn btn-danger">
+        Finalizar
+    </button>
+    <button ng-hide="iniciado" ng-click="iniciar()" class="btn btn-success">
+        Iniciar
+    </button>
+    <div>
+        <hr>
+        <div>
+            <label for="">Filtrar por nome:</label>
+            <input type="text" ng-model="filtro">
+        </div>
+        <h4>Alunos</h4>
+        <table>
+            <tr>
+                <th ng-click="ordenarPorNome()">Nome</th>
+                <th ng-click="ordenarPorIdade()">Idade</th>
+            </tr>
+            <tr ng-repeat="aluno in alunos | filter: filtro">
+                <td>
+                    {{aluno.nome}}
+                </td>
+                <td>
+                    {{aluno.idade}}
+                </td>
+            </tr>
+        </table>
+        <hr>
+    </div>
+</div>
